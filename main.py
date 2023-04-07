@@ -1,3 +1,4 @@
+import os 
 import dearpygui.dearpygui as dpg 
 
 dpg.create_context()
@@ -9,10 +10,40 @@ with dpg.theme() as primarybtn_blue_theme:
         dpg.add_theme_color(dpg.mvThemeCol_Button, (16, 194, 75), category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, (0, 0, 0), category=dpg.mvThemeCat_Core)
 
-def calculate(number):
-    print(number)
-    if number.isdigit():
-        print(type(int(number)))
+
+
+
+elements = []
+
+def calculate(text):
+    try:
+        if text == '=':
+
+            e = elements
+            global result 
+            result = eval("".join(str(i) for i in e ))
+            elements.clear()
+            os.system('cls')
+            return print(result)
+        
+        elif text =='clear':
+
+            elements.clear()
+            os.system('cls')
+
+        elif text.isdigit():
+            elements.append(text)
+            os.system('cls')
+            print("".join(str(i) for i in elements))
+            
+        else:
+            elements.append(text)
+            os.system('cls')
+            print("".join(str(i) for i in elements))
+            
+    except Exception as err:
+        return print(err)
+
         
 with dpg.window(label="",tag = 'Primary Window'):
     with dpg.group(horizontal= True):
@@ -36,11 +67,11 @@ with dpg.window(label="",tag = 'Primary Window'):
     with dpg.group(horizontal= True):
         dpg.add_button(label="DEL", width=100, height = 80, callback = calculate)
         dpg.add_button(label="0", width=100, height = 80, callback = calculate, tag = '0')
-        dpg.add_button(label="CLEAR", width=100, height = 80, callback = calculate)
+        dpg.add_button(label="CLEAR", width=100, height = 80, callback = calculate, tag = 'clear')
         dpg.add_button(label="*", width=100, height = 80, callback = calculate, tag = '*')
 
     with dpg.group(horizontal= True):
-        equals  = dpg.add_button(label="=", width=316, height = 80, callback = calculate)
+        equals  = dpg.add_button(label="=", width=316, height = 80, callback = calculate, tag = '=')
         dpg.bind_item_theme(equals, primarybtn_blue_theme)
         dpg.add_button(label="%", width=100, height = 80, callback = calculate, tag = '%')
 
