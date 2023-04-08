@@ -15,9 +15,11 @@ with dpg.theme() as primarybtn_green_theme:
 
 elements = []
 
-def calculate(text):
+def calculate(symbol: str):
+
+    global elements
     try:
-        if text == '=':
+        if symbol == '=':
 
             e = elements
             global result 
@@ -26,18 +28,24 @@ def calculate(text):
             os.system('cls')
             return print(result)
         
-        elif text =='clear':
+        elif symbol =='clear':
 
             elements.clear()
             os.system('cls')
 
-        elif text.isdigit():
-            elements.append(text)
+        elif symbol == 'del':
+            elements = elements[:-1]
+            os.system('cls')
+            print("".join(str(i) for i in elements))
+
+
+        elif symbol.isdigit():
+            elements.append(symbol)
             os.system('cls')
             print("".join(str(i) for i in elements))
             
         else:
-            elements.append(text)
+            elements.append(symbol)
             os.system('cls')
             print("".join(str(i) for i in elements))
             
@@ -65,7 +73,7 @@ with dpg.window(label="",tag = 'Primary Window'):
         dpg.add_button(label="/", width=100, height = 80, callback = calculate, tag = '/')
 
     with dpg.group(horizontal= True):
-        dpg.add_button(label="DEL", width=100, height = 80, callback = calculate)
+        dpg.add_button(label="DEL", width=100, height = 80, callback = calculate, tag = 'del')
         dpg.add_button(label="0", width=100, height = 80, callback = calculate, tag = '0')
         dpg.add_button(label="CLEAR", width=100, height = 80, callback = calculate, tag = 'clear')
         dpg.add_button(label="*", width=100, height = 80, callback = calculate, tag = '*')
