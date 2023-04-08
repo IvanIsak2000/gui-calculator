@@ -4,7 +4,7 @@ import dearpygui.dearpygui as dpg
 dpg.create_context()
 dpg.create_viewport(title='Calculator', width=450, height=500)
 
-with dpg.theme() as primarybtn_blue_theme:
+with dpg.theme() as primarybtn_green_theme:
     with dpg.theme_component(dpg.mvButton):
         dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6, category=dpg.mvThemeCat_Core)
         dpg.add_theme_color(dpg.mvThemeCol_Button, (16, 194, 75), category=dpg.mvThemeCat_Core)
@@ -72,7 +72,7 @@ with dpg.window(label="",tag = 'Primary Window'):
 
     with dpg.group(horizontal= True):
         equals  = dpg.add_button(label="=", width=316, height = 80, callback = calculate, tag = '=')
-        dpg.bind_item_theme(equals, primarybtn_blue_theme)
+        dpg.bind_item_theme(equals, primarybtn_green_theme)
         dpg.add_button(label="%", width=100, height = 80, callback = calculate, tag = '%')
 
 dpg.setup_dearpygui()
